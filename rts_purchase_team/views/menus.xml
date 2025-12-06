@@ -1,0 +1,15 @@
+<odoo>
+    <menuitem id="menu_purchase_team_main"
+              name="Teams"
+              parent="purchase.menu_purchase_root"
+              action="action_purchase_team"
+              sequence="4"
+              groups="purchase.group_purchase_user"/>
+
+    <menuitem id="menu_purchase_team_config"
+              name="Purchase Teams"
+              parent="purchase.menu_purchase_config"
+              action="action_purchase_team"
+              sequence="15"
+              groups="purchase.group_purchase_user"/>
+</odoo>

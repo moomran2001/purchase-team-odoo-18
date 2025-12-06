@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_purchase_team_list" model="ir.ui.view">
+        <field name="name">purchase.team.list</field>
+        <field name="model">purchase.team</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="team_leader_id" widget="many2one_avatar_user"/>
+                <field name="user_ids" widget="many2many_tags"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_purchase_team_form" model="ir.ui.view">
+        <field name="name">purchase.team.form</field>
+        <field name="model">purchase.team</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Team">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_members" icon="fa-users">
+                            <field name="member_count" widget="statinfo" string="Members"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_purchase_orders" icon="fa-list">
+                            <field name="purchase_order_count" widget="statinfo" string="Orders"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" string="Team Name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Purchase Team 1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="left">
+                            <field name="team_leader_id" widget="many2one_avatar_user"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group name="right">
+                            <field name="active"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Members" name="members">
+                            <field name="user_ids" nolabel="1" mode="kanban">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="name"/>
+                                    <field name="email"/>
+                                    <field name="avatar_128"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click">
+                                                <div class="o_kanban_image">
+                                                    <img t-att-src="kanban_image('res.users', 'avatar_128', record.id.raw_value)" alt="User"/>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <strong class="o_kanban_record_title">
+                                                        <field name="name"/>
+                                                    </strong>
+                                                    <div>
+                                                        <field name="email"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+<!--                            <div class="o_row mt16">-->
+<!--                                <button name="action_add_members" type="object" string="Add Members" class="btn-primary"/>-->
+<!--                            </div>-->
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Purchase Teams Action -->
+    <record id="action_purchase_team" model="ir.actions.act_window">
+        <field name="name">Purchase Teams</field>
+        <field name="res_model">purchase.team</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Purchase Team
+            </p>
+            <p>
+                Organize your purchase department into teams to better manage your purchasing activities.
+            </p>
+        </field>
+    </record>
+
+</odoo>

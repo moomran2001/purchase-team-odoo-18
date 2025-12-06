@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Purchase User: Own Documents Only -->
+    <record id="purchase_order_rule_user_own" model="ir.rule">
+        <field name="name">Purchase Order: User Own Documents</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="groups" eval="[(4, ref('group_purchase_team_user'))]"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+    </record>
+
+    <!-- All Documents: Own + Team Members + Team Leader -->
+    <record id="purchase_order_rule_all_docs" model="ir.rule">
+        <field name="name">Purchase Order: All Documents Access</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="groups" eval="[(4, ref('group_purchase_all_documents'))]"/>
+        <field name="domain_force">['|', '|', ('user_id', '=', user.id), ('purchase_team_id.user_ids', 'in', user.id), ('purchase_team_id.team_leader_id', '=', user.id)]</field>
+    </record>
+
+    <!-- Administrator: Full Access -->
+    <record id="purchase_order_rule_manager" model="ir.rule">
+        <field name="name">Purchase Order: Administrator Full Access</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="groups" eval="[(4, ref('group_purchase_team_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+</odoo>

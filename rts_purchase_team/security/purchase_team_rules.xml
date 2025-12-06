@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Purchase Team: User can see their teams -->
+    <record id="purchase_team_rule_user" model="ir.rule">
+        <field name="name">Purchase Team: User Access</field>
+        <field name="model_id" ref="model_purchase_team"/>
+        <field name="groups" eval="[(4, ref('group_purchase_team_user'))]"/>
+        <field name="domain_force">['|', ('user_ids', 'in', user.id), ('team_leader_id', '=', user.id)]</field>
+    </record>
+
+    <!-- Purchase Team: Manager sees all -->
+    <record id="purchase_team_rule_manager" model="ir.rule">
+        <field name="name">Purchase Team: Manager Full Access</field>
+        <field name="model_id" ref="model_purchase_team"/>
+        <field name="groups" eval="[(4, ref('group_purchase_team_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+</odoo>

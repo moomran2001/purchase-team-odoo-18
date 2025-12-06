@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_team_user,purchase.team.user,model_purchase_team,purchase.group_purchase_user,1,1,1,0
+access_purchase_team_all_documents,purchase.team.all.documents,model_purchase_team,group_purchase_all_documents,1,1,1,0
+access_purchase_team_manager,purchase.team.manager,model_purchase_team,purchase.group_purchase_manager,1,1,1,1
